@@ -21,7 +21,23 @@
               <a href="#"><button type="button">상품 추가</button></a>
             {% endif %}
             {% if request.user.is_authenticated %}
-              프로필 사진
+              <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  프로필
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                  <li><a class="dropdown-item" href="#">프로필</a></li>
+                  <li><a class="dropdown-item" href="#">회원정보수정</a></li>
+                  <li>
+                    <form action="{% url 'accounts:logout' %}" method="POST">
+                      {% csrf_token %}
+                      <button class="dropdown-item" type="submit">로그아웃</button>
+                    </form>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
+                </ul>
+              </div>
             {% else %}
               <a href="{% url 'accounts:signup' %}"><button type="button">가입</button></a>
               <a href="{% url 'accounts:login' %}"><button type="button">로그인</button></a>
