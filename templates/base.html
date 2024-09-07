@@ -19,12 +19,12 @@
           <div class="">
             {% if user.is_staff %}
               <a href="#"><button type="button">상품 추가</button></a>
-            {% else %}
-              <a href="{% url 'accounts:signup' %}"><button type="button">가입</button></a>
-              <a href="{% url 'accounts:login' %}"><button type="button">로그인</button></a>
             {% endif %}
             {% if request.user.is_authenticated %}
               프로필 사진
+            {% else %}
+              <a href="{% url 'accounts:signup' %}"><button type="button">가입</button></a>
+              <a href="{% url 'accounts:login' %}"><button type="button">로그인</button></a>
             {% endif %}
           </div>
         </div>
