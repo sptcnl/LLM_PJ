@@ -35,7 +35,12 @@
                     </form>
                   </li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
+                  <li>
+                    <form action="{% url 'accounts:delete' %}" method="POST">
+                      {% csrf_token %}
+                      <button class="dropdown-item">회원탈퇴</button>
+                    </form>
+                  </li>
                 </ul>
               </div>
             {% else %}

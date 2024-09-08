@@ -55,8 +55,12 @@ def logout(request):
     return redirect("index")
 
 
+@require_POST
 def delete(request):
-    pass
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+    return redirect("index")
 
 
 def update(request):

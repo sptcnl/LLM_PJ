@@ -7,10 +7,10 @@ from django.urls import reverse
 
 
 class CustomUserCreationForm(UserCreationForm):  
-   class Meta:
+    class Meta:
         model = get_user_model()
         fields = UserCreationForm.Meta.fields + ()
 
 
 class CustomUserChangeForm(UserChangeForm):
-   pass
+    pass
