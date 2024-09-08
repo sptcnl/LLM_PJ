@@ -1,18 +1,32 @@
 from django.shortcuts import (
     render, 
-    redirect
+    redirect,
+    get_object_or_404,
 )
-from .forms import ProductForm
+from django.views.decorators.http import (
+    require_http_methods, 
+    require_POST,
+)
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import ProductForm
+from .models import Product
 
 
 def index(request):
-    return render(request, "products/index.html")
+    products = Product.objects.all().order_by("-pk")
+    context = {
+        "products": products,
+    }
+    return render(request, "products/index.html", context)
 
 
-def product_detail(request):
-    pass
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {
+        "product": product,
+    }
+    return render(request, "products/product_detail.html", context)
 
 
 @login_required
@@ -32,8 +46,13 @@ def create(request):
     return redirect("index")
 
 
-def delete(request):
-    pass
+@require_POST
+def delete(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.user.is_staff:
+        product = get_object_or_404(Product, pk=pk)
+        product.delete()
+    return redirect("index")
 
 
 def update(request):

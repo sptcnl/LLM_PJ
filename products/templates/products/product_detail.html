@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>상품상세</h1>
+    <h1>상품상세</h1>
+    <p>{{ product.flavor }}</p>
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}">
+    {% endif %}
+
+    <p>설명: {{ product.content }}</p>
+    <p>작성일시: {{ product.created_at }}</p>
+    <p>수정일시: {{ product.updated_at }}</p>
+
+    {% if user.is_staff %}
+        <a href="{% url 'products:update' product.pk %}">
+            <button>수정하기</button>
+        </a>
+
+        <form action="{% url 'products:delete' product.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="삭제">
+        </form>
+    {% endif %}
 {% endblock content %}
