@@ -7,7 +7,7 @@ class Product(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to="static/image/flavor/", blank=True)
+    image = models.ImageField(upload_to="flavor/", blank=True, default="static/image/default_product.png")
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_products"
     )

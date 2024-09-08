@@ -55,5 +55,24 @@ def delete(request, pk):
     return redirect("index")
 
 
-def update(request):
-    pass
+@login_required
+@require_http_methods(["GET", "POST"])
+def update(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.user.is_staff:
+        if request.method == "POST":
+            form = ProductForm(request.POST, instance=product)
+            if form.is_valid():
+                product = form.save()
+                return redirect("products:product_detail", product.pk)
+        else:
+            form = ProductForm(instance=product)
+    else:
+        messages.error(request, "접근이 불가합니다.")
+        return redirect("index")
+    
+    context = {
+        "form": form,
+        "product": product,
+    }
+    return render(request, "products/update.html", context)
