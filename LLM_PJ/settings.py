@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_seed',
     'accounts',
     'products',
     'users',
@@ -84,7 +85,7 @@ DATABASES = {
     }
 }
 
-# AUTH_USER_MODEL = 'accounts.Users'
+AUTH_USER_MODEL = 'accounts.Users'
 
 
 # Password validation
