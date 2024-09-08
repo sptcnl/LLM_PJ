@@ -76,3 +76,15 @@ def update(request, pk):
         "product": product,
     }
     return render(request, "products/update.html", context)
+
+
+@require_POST
+def like(request, pk):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Product, pk=pk)
+        if product.like_users.filter(pk=request.user.pk).exists():
+            product.like_users.remove(request.user)
+        else:
+            product.like_users.add(request.user)
+        return redirect("products:product_detail", pk)
+    return redirect("products:login")
