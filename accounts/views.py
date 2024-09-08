@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordChangeForm,
-    UserCreationForm,
 )
 from django.contrib.auth import (
     login as auth_login,
@@ -63,9 +62,27 @@ def delete(request):
     return redirect("index")
 
 
+@require_http_methods(["GET", "POST"])
 def update(request):
-    pass
+    if request.method == "POST":
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {"form": form}
+    return render(request, "accounts/update.html", context)
 
 
 def change_password(request):
-    pass
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect("index")
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {"form": form}
+    return render(request, "accounts/change_password.html", context)

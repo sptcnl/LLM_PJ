@@ -27,7 +27,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end">
                   <li><a class="dropdown-item" href="#">프로필</a></li>
-                  <li><a class="dropdown-item" href="#">회원정보수정</a></li>
+                  <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원정보수정</a></li>
                   <li>
                     <form action="{% url 'accounts:logout' %}" method="POST">
                       {% csrf_token %}
