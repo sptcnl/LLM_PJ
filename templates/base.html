@@ -24,7 +24,7 @@
             {% if request.user.is_authenticated %}
               <div class="btn-group">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  프로필
+                  메뉴
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end">
                   <li><a class="dropdown-item" href="{% url 'users:profile' request.user.username %}">프로필</a></li>
