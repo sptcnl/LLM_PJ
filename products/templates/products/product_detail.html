@@ -24,7 +24,7 @@
         </form>
     {% endif %}
     
-    <form action="{% url 'products:like' product.pk %}" method="POST"></form>
+    <form action="{% url 'products:like' product.pk %}" method="POST">
         {% csrf_token %}
         {% if request.user in product.like_users.all %}
             <input type="submit" value="좋아요 취소하기">
