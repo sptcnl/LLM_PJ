@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        .image-size {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    
+    <h1>상품상세</h1>
+    <p>{{ product.flavor }}</p>
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="image-size">
+    {% endif %}
+
+    <p>설명: {{ product.content }}</p>
+    <p>작성일시: {{ product.created_at }}</p>
+    <p>수정일시: {{ product.updated_at }}</p>
+
+    {% if user.is_staff %}
+        <a href="{% url 'products:update' product.pk %}">
+            <button>수정하기</button>
+        </a>
+
+        <form action="{% url 'products:delete' product.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="삭제">
+        </form>
+    {% endif %}
+    
+    <form action="{% url 'products:like' product.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in product.like_users.all %}
+            <input type="submit" value="좋아요 취소하기">
+        {% else %}
+            <input type="submit" value="좋아요하기">
+        {% endif %}
+    </form>
+{% endblock content %}
