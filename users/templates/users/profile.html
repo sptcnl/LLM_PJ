@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>프로필</h1>
+    <img src="{{ member.profile_picture.url }}"> <br>
+    username : {{ member.username }} <br>
+    date_joined : {{ member.date_joined }} <br>
+
+    <a><button>회원정보 수정</button></a> <br>
+    <a><button>비밀번호 변경</button></a> <br>
+
+    {% if request.user == member %}
+        내가 찜한 맛
+        {% for product in member.like_products.all %}
+            <ul>
+                <a href="{% url 'products:product_detail' product.pk %}">{{ product.flavor }}</a>
+            </ul>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}
