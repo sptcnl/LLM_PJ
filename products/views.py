@@ -52,6 +52,8 @@ def delete(request, pk):
     if request.user.is_staff:
         product = get_object_or_404(Product, pk=pk)
         product.delete()
+        return redirect("index")
+    messages.error(request, "접근이 불가합니다.")
     return redirect("index")
 
 

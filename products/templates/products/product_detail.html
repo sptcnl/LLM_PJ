@@ -20,15 +20,15 @@
     <p>작성일시: {{ product.created_at }}</p>
     <p>수정일시: {{ product.updated_at }}</p>
 
-    {% if user.is_staff %}
-        <a href="{% url 'products:update' product.pk %}">
-            <button>수정하기</button>
-        </a>
+    <a href="{% url 'products:update' product.pk %}">
+        <button>수정하기</button>
+    </a>
 
-        <form action="{% url 'products:delete' product.pk %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="삭제">
-        </form>
+    <form action="{% url 'products:delete' product.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
+    {% if user.is_staff %}
     {% endif %}
     
     <form action="{% url 'products:like' product.pk %}" method="POST">
