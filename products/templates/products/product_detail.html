@@ -2,11 +2,18 @@
 {% load static %}
 
 {% block content %}
+    <style>
+        .image-size {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    
     <h1>상품상세</h1>
     <p>{{ product.flavor }}</p>
 
     {% if product.image %}
-        <img src="{{ product.image.url }}">
+        <img src="{{ product.image.url }}" class="image-size">
     {% endif %}
 
     <p>설명: {{ product.content }}</p>
